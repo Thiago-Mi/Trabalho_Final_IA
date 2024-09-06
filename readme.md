@@ -1,4 +1,4 @@
-O sistema utiliza sintomas observados para inferir possíveis diagnósticos com graus de certeza e probabilidade.
+# O sistema utiliza sintomas observados para inferir possíveis diagnósticos com graus de certeza e probabilidade e pode ser acessado atraves do link [Dignóstico por inferência](https://inferencia-diagnostico.streamlit.app/).
 
 # Recapitulação da Teoria da Lógica de Primeira Ordem, Representação do Conhecimento e Motor de Inferência
 
