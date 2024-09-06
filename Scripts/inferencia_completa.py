@@ -241,8 +241,8 @@ def main():
         # Inicializar o motor de inferência
         motor = MotorDeInferencia(regras)
         paciente = st.text_input("Digite o nome do paciente")
-        sintomas = st.text_input("Digite os sintomas do paciente separados por vírgula")
-        if st.button("Adicionar Sintoma"):
+        sintomas = st.text_input("Digite os sintomas do paciente separados por vírgula sem espaço Ex: febre,tosse,dor de cabeça")
+        if st.button("Adicionar Sintomas"):
             # Adicionar sintomas ao motor de inferência
             for sintoma in sintomas.split(','):
                 motor.adicionar_fato(paciente, Predicado(sintoma.strip()))
