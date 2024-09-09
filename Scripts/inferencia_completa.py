@@ -4,7 +4,8 @@ import pandas as pd
 
 class Predicado:
     """
-    Classe que representa um predicado, que pode ser um sintoma ou um diagnóstico.
+    Classe que representa um predicado, que pode ser um sintoma ou um diagnóstico. 
+    Esta classe é a base para comparação de sintomas e diagnósticos no sistema de inferência.
     """
     def __init__(self, nome):
         """
@@ -42,7 +43,8 @@ class Predicado:
 
 class Regra:
     """
-    Classe que representa uma regra de inferência que relaciona sintomas a um diagnóstico.
+    Classe que representa uma regra de inferência, conectando uma lista de sintomas (antecedente) 
+    a um diagnóstico (consequente), com um grau de certeza indicado pelo peso.
     """
     def __init__(self, antecedente, consequente, peso):
         """
@@ -149,9 +151,13 @@ class MotorDeInferencia:
 
     def inferir(self, paciente):
         """
-        Avalia cada regra em relação aos fatos conhecidos do paciente e atualiza a certeza e probabilidade dos diagnósticos.
+        Avalia as regras em relação aos sintomas conhecidos do paciente, atualizando as probabilidades e certezas dos diagnósticos.
         
-        :param paciente: Nome do paciente.
+        Para cada regra, calcula:
+        - fração de certeza: pondera o grau de correspondência entre os sintomas observados e os antecedentes da regra com base no peso da regra.
+        - fração de probabilidade: utiliza uma versão simplificada da regra de Bayes para estimar a probabilidade do diagnóstico.
+        
+        O processo repete para todas as regras aplicáveis ao paciente.
         """
         self.certeza_por_paciente[paciente] = {}
         self.probabilidade_por_paciente[paciente] = {}
@@ -166,7 +172,8 @@ class MotorDeInferencia:
 
     def atualizar_certeza(self, paciente, diagnostico, fracao_certeza):
         """
-        Atualiza a certeza acumulada de um diagnóstico para um paciente.
+        Atualiza a certeza acumulada de um diagnóstico para um paciente, calculando a média entre o valor atual 
+        e a nova fração de certeza. Esse processo garante que novos dados ajustem a confiança no diagnóstico.
         
         :param paciente: Nome do paciente.
         :param diagnostico: Objeto Predicado representando o diagnóstico.
@@ -180,6 +187,7 @@ class MotorDeInferencia:
     def atualizar_probabilidade(self, paciente, diagnostico, fracao_probabilidade):
         """
         Atualiza a probabilidade acumulada de um diagnóstico para um paciente usando a regra de Bayes simplificada.
+        O método ajusta a probabilidade com base em novos fatos, reduzindo a incerteza conforme mais sintomas são conhecidos.
         
         :param paciente: Nome do paciente.
         :param diagnostico: Objeto Predicado representando o diagnóstico.

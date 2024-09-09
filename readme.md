@@ -1,4 +1,7 @@
-# O sistema utiliza sintomas observados para inferir possíveis diagnósticos com graus de certeza e probabilidade e pode ser acessado atraves do link [Dignóstico por inferência](https://inferencia-diagnostic.streamlit.app/).
+# Sistema que utiliza sintomas observados para inferir possíveis diagnósticos com graus de certeza e probabilidade.
+
+Este sistema foi construído com base em um motor de inferência de lógica de primeira ordem, onde regras são aplicadas para relacionar sintomas observados a possíveis diagnósticos. Ele utiliza graus de certeza e probabilidade, calculados a partir de múltiplos sintomas e regras, permitindo diagnósticos mais precisos. A interface é acessível através do link [Dignóstico por inferência](https://inferencia-diagnostic.streamlit.app/).
+
 
 # Recapitulação da Teoria da Lógica de Primeira Ordem, Representação do Conhecimento e Motor de Inferência
 
@@ -15,7 +18,8 @@ A Lógica de Primeira Ordem (LPO) é um sistema formal que estende a lógica pro
 - **Conectivos Lógicos**: Usados para combinar fórmulas (e.g., ∧ para "e", ∨ para "ou", ¬ para "não", → para "implica").
 
 ### Exemplo
-A expressão ∀x (Gato(x) → Mamífero(x)) significa que todos os gatos são mamíferos.
+Por exemplo, podemos definir a regra: ∀x (Febre(x) ∧ Tosse(x) → Gripe(x)), que indica que se um paciente apresenta febre e tosse, ele pode ser diagnosticado com gripe.
+
 
 ## 1. Representação do Conhecimento
 
@@ -138,25 +142,35 @@ Exemplo de uso do motor de inferência:
 
 - O motor avalia as regras para verificar quais podem ser aplicadas com base nos fatos conhecidos.
 - Para cada regra, calcula-se a certeza e probabilidade do diagnóstico com base nos sintomas presentes.
-- A certeza acumulada aumenta conforme o número de sintomas correspondentes aos antecedentes da regra.
-- A probabilidade é ajustada para considerar a combinação de eventos múltiplos, refinando a confiança no diagnóstico.
+- A certeza é calculada como uma fração do grau de correspondência entre os sintomas observados e os antecedentes da regra, ponderada pelo peso da regra.
+- A probabilidade é ajustada de acordo com a combinação de múltiplos sintomas, utilizando a regra de Bayes para calcular a probabilidade combinada de um diagnóstico.
 
-## 5. Conclusão
+## 5. Estrutura do Código
+
+O sistema é dividido em três componentes principais:
+- **Classe Predicado**: Representa um sintoma ou diagnóstico. Cada predicado tem um nome e pode ser comparado a outros predicados.
+- **Classe Regra**: Define a relação entre sintomas (antecedentes) e diagnósticos (consequente), além de um peso que indica o grau de certeza da regra.
+- **Motor de Inferência**: Gerencia o processo de inferência. Quando sintomas são adicionados, o motor avalia todas as regras e calcula a certeza e probabilidade de diagnósticos para cada paciente.
+
+
+## 6. Conclusão
 
 Este sistema permite inferir diagnósticos baseados em sintomas observados usando regras de conhecimento pré-definidas. A combinação de múltiplas regras possibilita um diagnóstico com graus de certeza e probabilidade, tornando o sistema flexível e capaz de lidar com novos fatos.
 
 # Exemplo de uso
-- caminho_predicados_sintomas = 'sintomas.txt'
-- caminho_predicados_diagnosticos = 'diagnosticos.txt'
-- caminho_definicao_regras = 'regras.txt'
+```python
+caminho_predicados_sintomas = 'sintomas.txt'
+caminho_predicados_diagnosticos = 'diagnosticos.txt'
+caminho_definicao_regras = 'regras.txt'
 
-- predicados_sintomas = ler_predicados_de_arquivo(caminho_predicados_sintomas)
-- predicados_diagnosticos = ler_predicados_de_diagnosticos_de_arquivo(caminho_predicados_diagnosticos)
-- regras = ler_definicao_de_regras(caminho_definicao_regras, predicados_sintomas, predicados_diagnosticos)
+predicados_sintomas = ler_predicados_de_arquivo(caminho_predicados_sintomas)
+predicados_diagnosticos = ler_predicados_de_diagnosticos_de_arquivo(caminho_predicados_diagnosticos)
+regras = ler_definicao_de_regras(caminho_definicao_regras, predicados_sintomas, predicados_diagnosticos)
 
-- motor = MotorDeInferencia(regras)
-- motor.adicionar_fato('Thiago',Predicado("febre"))
-- motor.adicionar_fato('Thiago',Predicado("tosse"))
-- motor.adicionar_fato('Thiago',Predicado("dificuldade_respiratoria"))
-- motor.adicionar_fato('Thiago',Predicado("fadiga"))
-- motor.mostrar_fatos()
+motor = MotorDeInferencia(regras)
+motor.adicionar_fato('Nome do Paciente',Predicado("febre"))
+motor.adicionar_fato('Nome do Paciente',Predicado("tosse"))
+motor.adicionar_fato('Nome do Paciente',Predicado("dificuldade_respiratoria"))
+motor.adicionar_fato('Nome do Paciente',Predicado("fadiga"))
+motor.mostrar_fatos()
+```
