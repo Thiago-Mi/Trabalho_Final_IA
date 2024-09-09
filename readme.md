@@ -145,6 +145,24 @@ Exemplo de uso do motor de inferência:
 - A certeza é calculada como uma fração do grau de correspondência entre os sintomas observados e os antecedentes da regra, ponderada pelo peso da regra.
 - A probabilidade é ajustada de acordo com a combinação de múltiplos sintomas, utilizando a regra de Bayes para calcular a probabilidade combinada de um diagnóstico.
 
+### Cálculo de Certeza e Probabilidade
+
+**Cálculo de Certeza:**
+- A certeza acumulada de um diagnóstico para um paciente é atualizada com base na fração de certeza fornecida.
+- A fração de certeza é calculada como: 
+  `fração de certeza = peso × (num_correlações / total_antecedentes)`
+- Se o diagnóstico ainda não possui uma certeza acumulada para o paciente, a fração de certeza fornecida é usada como a certeza inicial.
+- Se o diagnóstico já possui uma certeza acumulada, a nova fração de certeza é combinada com a certeza existente usando uma média aritmética.
+
+**Cálculo de Probabilidade:**
+- A probabilidade acumulada de um diagnóstico para um paciente é atualizada usando uma versão simplificada da regra de Bayes.
+- A fração de probabilidade é calculada como:
+  `fração de probabilidade = 1 - (1 - peso) ^ (num_correlações / total_antecedentes)`
+- Se o diagnóstico ainda não possui uma probabilidade acumulada para o paciente, a fração de probabilidade fornecida é usada como a probabilidade inicial.
+- Se o diagnóstico já possui uma probabilidade acumulada, a nova fração de probabilidade é combinada com a probabilidade existente usando a fórmula:
+  `P(A|B) = 1 - (1 - P(A|B_anterior)) × (1 - P(B|A))` onde `P(A|B_anterior)` é a probabilidade acumulada anterior e `P(B|A)` é a nova fração de probabilidade.
+
+
 ## 5. Estrutura do Código
 
 O sistema é dividido em três componentes principais:

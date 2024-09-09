@@ -234,7 +234,7 @@ def main():
     Função principal que inicializa a interface do Streamlit e gerencia a entrada de dados.
     """
     st.title("Sistema de Inferência de Diagnósticos")
-
+    st.write("Este sistema utiliza um motor de inferência baseado em regras para diagnosticar doenças com base em sintomas. Para começar, carregue os arquivos de sintomas, diagnósticos e regras disponiveis na pagina: https://github.com/Thiago-Mi/Trabalho_Final_IA/tree/main/Inputs.")
     # Carregar arquivos de sintomas, diagnósticos e regras
     sintomas_path = st.file_uploader("Carregar arquivo de sintomas")
     diagnosticos_path = st.file_uploader("Carregar arquivo de diagnósticos")
@@ -245,6 +245,11 @@ def main():
         predicados_sintomas = ler_predicados_de_arquivo(sintomas_path)
         predicados_diagnosticos = ler_predicados_de_diagnosticos_de_arquivo(diagnosticos_path)
         regras = ler_definicao_de_regras(regras_path, predicados_sintomas, predicados_diagnosticos)
+
+        # Exibir tabela com scroll dos sintomas carregados
+        st.subheader("Sintomas Carregados")
+        sintomas_df = pd.DataFrame([{"Sintoma": sintoma.nome} for sintoma in predicados_sintomas])
+        st.dataframe(sintomas_df, height=200, width=218)
 
         # Inicializar o motor de inferência
         motor = MotorDeInferencia(regras)

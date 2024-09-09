@@ -1,8 +1,10 @@
 tosse,dor_de_garganta;resfriado;0.5
 febre,tosse,fadiga,dificuldade_respiratoria;covid19;0.9
 fadiga,dor_de_garganta,febre;mononucleose;0.7
+fadiga,calafrios,sudorese;gripe;0.69
 febre,dor_no_corpo,dor_de_cabeca;dengue;0.85
 febre,dor_de_cabeca,dores_abdominais;zika;0.7
+febre,tosse,calafrios,sudorese;gripe;0.8
 febre,tosse,coriza,espirros;influenza;0.75
 dor_de_cabeca,fadiga,dores_abdominais;hepatite;0.6
 febre,dor_de_cabeca,tosse;sarampo;0.65
@@ -12,7 +14,6 @@ dor_de_garganta,febre,sudorese;amigdalite;0.6
 dor_de_garganta,coriza,dor_de_cabeca;sinusite;0.5
 tosse,dificuldade_respiratoria,febre;bronquite;0.65
 tosse_seca,dificuldade_respiratoria,febre;pneumonia;0.9
-fadiga,calafrios,sudorese;gripe;0.8
 dor_de_cabeca,coriza,tosse;resfriado;0.5
 febre,calafrios,dor_no_corpo;covid19;0.85
 fadiga_extrema,dor_de_garganta,febre;mononucleose;0.75
@@ -70,7 +71,6 @@ tosse,coriza,espirros,febre;influenza;0.7
 dor_de_cabeca,tosse,dificuldade_respiratoria;pneumonia;0.85
 febre,fadiga,inapetencia;hepatite;0.6
 fadiga,dor_nas_articulacoes,erupcao_cutanea;chikungunya;0.75
-febre,tosse,calafrios,sudorese;gripe;0.8
 febre,coriza,dor_de_garganta;resfriado;0.5
 fadiga,dificuldade_respiratoria,perda_de_olfato;covid19;0.9
 dor_nas_articulacoes,febre,erupcao_cutanea;dengue;0.8
